@@ -1,3 +1,13 @@
+import { BrandStrip } from '../components/home/BrandStrip';
+import { HeroSlider } from '../components/home/HeroSlider';
+import { QuickSearch } from '../components/home/QuickSearch';
+
 export function HomePage() {
-  return <p className="p-10">Home (coming next)</p>;
+  return (
+    <>
+      <HeroSlider />
+      <QuickSearch />
+      <BrandStrip />
+    </>
+  );
 }
