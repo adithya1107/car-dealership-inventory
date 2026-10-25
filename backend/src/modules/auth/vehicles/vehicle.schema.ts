@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { Prisma } from '@prisma/client';
 
 const text = z.string().trim().min(1).max(100);
 
@@ -44,18 +43,13 @@ export const searchQuerySchema = listQuerySchema
     { message: 'minPrice must be less than or equal to maxPrice', path: ['minPrice'] },
   );
 
-function buildWhere(query: VehicleSearchQuery): Prisma.VehicleWhereInput {
-  const where: Prisma.VehicleWhereInput = {};
-  if (!query.includeOutOfStock) where.quantity = { gt: 0 };
-  if (query.make) where.make = { contains: query.make, mode: 'insensitive' };
-  if (query.model) where.model = { contains: query.model, mode: 'insensitive' };
-  if (query.category) where.category = { contains: query.category, mode: 'insensitive' };
-  if (query.minPrice !== undefined || query.maxPrice !== undefined) {
-    where.price = { gte: query.minPrice, lte: query.maxPrice };
-  }
-  return where;
-}
+export const purchaseSchema = z.object({
+    quantity: z.number().int().positive().max(100).default(1),
+});
 
+export const restockSchema = z.object({
+    quantity: z.number().int().positive().max(10_000),
+});
 
 export type CreateVehicleInput = z.infer<typeof createVehicleSchema>;
 export type UpdateVehicleInput = z.infer<typeof updateVehicleSchema>;

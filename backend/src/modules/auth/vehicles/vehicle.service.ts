@@ -1,7 +1,11 @@
 import { Vehicle } from '@prisma/client';
 import { VehicleRepository } from './vehicle.repository';
-import { CreateVehicleInput, UpdateVehicleInput, VehicleListQuery } from './vehicle.schema';
-import { NotFoundError } from '../../../errors/AppError';
+import {
+  CreateVehicleInput,
+  UpdateVehicleInput,
+  VehicleSearchQuery,
+} from './vehicle.schema';
+import { NotFoundError, OutOfStockError } from '../../../errors/AppError';
 
 export interface Page<T> {
   data: T[];
@@ -15,7 +19,7 @@ export class VehicleService {
     return this.vehicles.create(input);
   }
 
-  async find(query: VehicleListQuery): Promise<Page<Vehicle>> {
+  async find(query: VehicleSearchQuery): Promise<Page<Vehicle>> {
     const { items, total } = await this.vehicles.findMany(query);
     return {
       data: items,
@@ -27,10 +31,25 @@ export class VehicleService {
       },
     };
   }
-
-    async update(id: string, input: UpdateVehicleInput): Promise<Vehicle> {
+  async update(id: string, input: UpdateVehicleInput): Promise<Vehicle> {
     await this.getOrThrow(id);
     return this.vehicles.update(id, input);
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.getOrThrow(id);
+    await this.vehicles.remove(id);
+  }
+
+  async purchase(id: string, amount: number): Promise<Vehicle> {
+    const vehicle = await this.getOrThrow(id);
+    if (vehicle.quantity < amount) throw new OutOfStockError();
+    return this.vehicles.adjustStock(id, -amount);
+  }
+
+  async restock(id: string, amount: number): Promise<Vehicle> {
+    await this.getOrThrow(id);
+    return this.vehicles.adjustStock(id, amount);
   }
 
   private async getOrThrow(id: string): Promise<Vehicle> {

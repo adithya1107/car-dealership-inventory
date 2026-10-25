@@ -15,4 +15,6 @@ router.post('/', adminOnly, controller.create);
 router.put('/:id', adminOnly, controller.update);
 router.delete('/:id', adminOnly, controller.remove);
 router.get('/search', controller.search);
+router.post('/:id/purchase', controller.purchase);
+router.post('/:id/restock', adminOnly, controller.restock);
 export { router as vehicleRouter };
