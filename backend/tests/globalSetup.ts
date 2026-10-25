@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { getTestDatabaseUrl } from './testDbUrl';
+import { getTestDatabaseUrl } from './testDBUrl';
 
 export default async function globalSetup() {
   execSync('npx prisma db push --skip-generate', {

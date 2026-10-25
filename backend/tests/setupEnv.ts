@@ -1,4 +1,4 @@
-import { getTestDatabaseUrl } from './testDbUrl';
+import { getTestDatabaseUrl } from './testDBUrl';
 
 process.env.NODE_ENV = 'test';
 process.env.DATABASE_URL = getTestDatabaseUrl();
