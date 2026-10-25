@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../src/app';
 import { bearer, createAuthenticatedUser } from './helpers/auth';
-import { closeDatabase, resetDatabase } from './helpers/db';
+import { closeDatabase, resetDatabase } from '../src/helpers/db';
 import { createVehicle } from './helpers/factories';
 
 let token: string;
