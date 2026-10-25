@@ -13,5 +13,6 @@ router.use(authenticate); // every vehicle route requires a valid token
 router.get('/', controller.list);
 router.post('/', adminOnly, controller.create);
 router.put('/:id', adminOnly, controller.update);
-
+router.delete('/:id', adminOnly, controller.remove);
+router.get('/search', controller.search);
 export { router as vehicleRouter };

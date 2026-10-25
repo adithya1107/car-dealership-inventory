@@ -42,4 +42,9 @@ export class AuthService {
     const token = signToken({ sub: user.id, role: user.role as Role });
     return { token, user: toPublicUser(user) };
   }
+
+    async remove(id: string): Promise<void> {
+    await this.getOrThrow(id);
+    await this.vehicles.delete(id);
+  }
 }
