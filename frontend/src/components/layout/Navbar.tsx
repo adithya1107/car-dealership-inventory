@@ -36,16 +36,19 @@ export function Navbar() {
   const navigate = useNavigate();
   const close = () => setOpen(false);
 
-  const accountArea = isAuthenticated ? (
+    const accountArea = isAuthenticated ? (
     <>
       <span className="max-w-40 truncate text-sm text-slate-600" title={user?.email}>
         {user?.email}
       </span>
       {user?.role === 'ADMIN' && (
-        <span className="rounded-full bg-brand/10 px-2 py-0.5 text-xs font-semibold text-brand">Admin</span>
+        <span className="shrink-0 rounded-full bg-brand/10 px-2 py-0.5 text-xs font-semibold text-brand">
+          Admin
+        </span>
       )}
-      <Button
-        variant="outline"
+      <button
+        type="button"
+        className={`${buttonStyles('outline')} shrink-0 whitespace-nowrap`}
         onClick={() => {
           logout();
           close();
@@ -53,7 +56,7 @@ export function Navbar() {
         }}
       >
         Log out
-      </Button>
+      </button>
     </>
   ) : (
     <>

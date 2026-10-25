@@ -7,7 +7,7 @@ export function FeatureBanner() {
     <section className="py-10">
       <div className="grid items-center md:grid-cols-5">
         <img
-          src="/images/cars/suv.jpg"
+          src="/images/cars/suv.png"
           alt="White SUV parked beside shipping containers"
           className="h-72 w-full object-cover md:col-span-3 md:h-[420px] md:rounded-r-2xl"
         />

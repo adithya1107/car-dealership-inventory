@@ -19,7 +19,7 @@ import { VehicleForm } from '../components/vehicles/VehicleForm';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
 import { useVehicles } from '../hooks/useVehicles';
-import { getErrorMessage } from '../lib/errors';
+import { getErrorMessage } from '../lib/error';
 import { PAGE_SIZE, paramsFromUrl } from '../lib/searchParams';
 
 function VehicleCardSkeleton() {

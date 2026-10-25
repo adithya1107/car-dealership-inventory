@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AuthLayout } from './components/layout/AuthLayout';
 import { Layout } from './components/layout/Layout';
 import { ScrollToHash } from './components/layout/ScrollToHash';
 import { AuthProvider } from './context/AuthContext';
@@ -17,10 +18,15 @@ export default function App() {
         <ToastProvider>
           <ScrollToHash />
           <Routes>
-            <Route element={<Layout />}>
-              <Route index element={<HomePage />} />
+            {/* Login and register: no navbar or footer */}
+            <Route element={<AuthLayout />}>
               <Route path="login" element={<LoginPage />} />
               <Route path="register" element={<RegisterPage />} />
+            </Route>
+
+            {/* Everything else keeps the navbar and footer */}
+            <Route element={<Layout />}>
+              <Route index element={<HomePage />} />
               <Route element={<ProtectedRoute />}>
                 <Route path="inventory" element={<InventoryPage />} />
               </Route>

@@ -1,8 +1,8 @@
 export const DEFAULT_VEHICLE_IMAGE = '/images/cars/default.svg';
 
-const SUV = '/images/cars/suv.jpg';
-const COUPE = '/images/cars/coupe.jpg';
-const ELECTRIC = '/images/cars/electric.jpg';
+const SUV = '/images/cars/suv.png';
+const COUPE = '/images/cars/coupe.png';
+const ELECTRIC = '/images/cars/electric.png';
 
 /** Vehicles have no image field, so a photo is chosen by category. */
 const BY_CATEGORY: Record<string, string> = {
@@ -13,7 +13,7 @@ const BY_CATEGORY: Record<string, string> = {
   minivan: SUV,
   coupe: COUPE,
   convertible: COUPE,
-  truck: '/images/cars/truck.jpg',
+  truck: '/images/cars/truck.png',
   electric: ELECTRIC,
   hybrid: ELECTRIC,
 };

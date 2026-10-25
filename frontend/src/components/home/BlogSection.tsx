@@ -1,9 +1,9 @@
 import { SectionHeading } from './SectionHeading';
 
 const posts = [
-  { image: '/images/blog/1.jpg', title: 'Is The 2024 Porsche Cayenne S A Good SUV? 4 Pros And 3 Cons', alt: 'Blue Porsche Cayenne by the sea' },
-  { image: '/images/blog/2.jpg', title: 'Compact Steamroller: 2024 Toyota RAV4 Starts At $29,825', alt: 'Green Toyota RAV4 on a forest road' },
-  { image: '/images/blog/3.jpg', title: '2024 Kia Niro EV Costs $50 More, Nearly Unchanged Otherwise', alt: 'White Kia Niro EV in front of a building' },
+  { image: '/images/blog/1.png', title: 'Is The 2024 Porsche Cayenne S A Good SUV? 4 Pros And 3 Cons', alt: 'Blue Porsche Cayenne by the sea' },
+  { image: '/images/blog/2.png', title: 'Compact Steamroller: 2024 Toyota RAV4 Starts At $29,825', alt: 'Green Toyota RAV4 on a forest road' },
+  { image: '/images/blog/3.png', title: '2024 Kia Niro EV Costs $50 More, Nearly Unchanged Otherwise', alt: 'White Kia Niro EV in front of a building' },
 ];
 
 export function BlogSection() {
