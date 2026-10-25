@@ -12,7 +12,8 @@
     "test": "jest --runInBand",
     "test:coverage": "jest --runInBand --coverage",
     "db:push": "prisma db push",
-    "db:generate": "prisma generate"
+    "db:generate": "prisma generate",
+    "seed": "ts-node --transpile-only prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +40,7 @@
     "prisma": "^6.19.3",
     "supertest": "^7.3.1",
     "ts-jest": "^29.4.15",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
   }
