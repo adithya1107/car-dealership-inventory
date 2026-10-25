@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../src/app';
 import { prisma } from '../src/lib/prisma';
-import { closeDatabase, resetDatabase } from './helpers/db';
+import { closeDatabase, resetDatabase } from '../src/helpers/db';
 
 const validUser = { email: 'jane@example.com', password: 'Passw0rd!123' };
 
