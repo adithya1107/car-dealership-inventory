@@ -1,1 +1,29 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #a50021;       /* crimson: CTAs, accents */
+  --color-brand-dark: #82001a;
+  --color-navy: #11113a;        /* headings, primary buttons */
+  --color-navy-light: #25255c;
+  --color-surface: #f8f8fa;     /* page background */
+  --color-muted: #ededf1;       /* alternate section background */
+
+  --animate-fade-in: fade-in 0.6s ease-out;
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-surface font-sans text-navy antialiased; }
+}
+
+/* Hides the scrollbar on the horizontal car carousel. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
