@@ -3,6 +3,10 @@ import { Prisma, User } from '@prisma/client';
 import { ConflictError } from '../../errors/AppError';
 import { RegisterInput } from './auth.schema';
 import { UserRepository } from './user.repository';
+import jwt, { SignOptions } from 'jsonwebtoken';
+import { jwtConfig } from '../../config/env';
+import { UnauthorizedError } from '../../errors/AppError';
+import { LoginInput } from './auth.schema';
 
 export interface PublicUser {
   id: string;
@@ -31,5 +35,20 @@ export class AuthService {
       }
       throw err;
     }
+  }
+
+    async login(input: LoginInput): Promise<{ token: string; user: PublicUser }> {
+    const user = await this.users.findByEmail(input.email);
+    const passwordMatches = user !== null && (await bcrypt.compare(input.password, user.passwordHash));
+
+    // Same message for "no such user" and "wrong password"
+    if (!user || !passwordMatches) {
+      throw new UnauthorizedError('Invalid email or password', 'INVALID_CREDENTIALS');
+    }
+
+    const token = jwt.sign({ sub: user.id, role: user.role }, jwtConfig.secret, {
+      expiresIn: jwtConfig.expiresIn as SignOptions['expiresIn'],
+    });
+    return { token, user: toPublicUser(user) };
   }
 }

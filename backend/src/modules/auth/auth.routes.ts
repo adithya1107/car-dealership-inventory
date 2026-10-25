@@ -6,5 +6,6 @@ const router = Router();
 const controller = new AuthController(new AuthService());
 
 router.post('/register', controller.register);
+router.post('/login', controller.login);
 
 export { router as authRouter };
