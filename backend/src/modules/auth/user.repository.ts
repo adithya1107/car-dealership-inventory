@@ -10,4 +10,8 @@ export class UserRepository {
   findByEmail(email: string): Promise<User | null> {
     return prisma.user.findUnique({ where: { email } });
   }
+
+    async delete(id: string): Promise<void> {
+    await prisma.vehicle.delete({ where: { id } });
+  }
 }
