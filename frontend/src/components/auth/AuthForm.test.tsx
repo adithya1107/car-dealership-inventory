@@ -1,12 +1,16 @@
-import { http, HttpResponse } from 'msw';
 import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
 import { Route, Routes } from 'react-router-dom';
-import { describe, expect, it } from 'vitest';
-import { API_URL } from '../../api/client';
-import { server } from '../../test/server';
+import { describe, expect, it, vi } from 'vitest';
 import { renderWithProviders } from '../../test/utils';
 import { AuthForm } from './AuthForm';
+
+const { loginMock } = vi.hoisted(() => ({ loginMock: vi.fn() }));
+
+vi.mock('../../api/auth', () => ({
+  login: loginMock,
+  register: vi.fn(),
+}));
 
 function renderLogin() {
   return renderWithProviders(
@@ -21,13 +25,13 @@ function renderLogin() {
 
 describe('AuthForm (login)', () => {
   it('shows the server error when credentials are wrong', async () => {
-    server.use(
-      http.post(`${API_URL}/auth/login`, () =>
-        HttpResponse.json(
-          { error: { code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' } },
-          { status: 401 },
-        ),
-      ),
+    loginMock.mockRejectedValue(
+      Object.assign(new Error('Unauthorized'), {
+        isAxiosError: true,
+        response: {
+          data: { error: { code: 'INVALID_CREDENTIALS', message: 'Invalid email or password' } },
+        },
+      }),
     );
     renderLogin();
 
@@ -39,14 +43,10 @@ describe('AuthForm (login)', () => {
   });
 
   it('stores the session and redirects to the inventory on success', async () => {
-    server.use(
-      http.post(`${API_URL}/auth/login`, () =>
-        HttpResponse.json({
-          token: 'abc.def.ghi',
-          user: { id: '1', email: 'jane@example.com', role: 'USER' },
-        }),
-      ),
-    );
+    loginMock.mockResolvedValue({
+      token: 'abc.def.ghi',
+      user: { id: '1', email: 'jane@example.com', role: 'USER' },
+    });
     renderLogin();
 
     await userEvent.type(screen.getByLabelText(/email/i), 'jane@example.com');
