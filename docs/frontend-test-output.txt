@@ -1,0 +1,106 @@
+
+> frontend@0.0.0 test:coverage
+> vitest run --coverage
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.5 [39m[90m/Users/adimac/Documents/test/frontend[39m
+      [2mCoverage enabled with [22m[33mv8[39m
+
+ [32m✓[39m src/lib/format.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/routes/ProtectedRoute.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+ [32m✓[39m src/components/vehicles/VehicleCard.test.tsx [2m([22m[2m5 tests[22m[2m)[22m[32m 232[2mms[22m[39m
+ [32m✓[39m src/components/auth/AuthForm.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[33m 470[2mms[22m[39m
+   [32m✓[39m AuthForm (login) [2m(2)[22m
+     [33m[2m✓[22m[39m shows the server error when credentials are wrong[33m 303[2mms[22m[39m
+Failed to parse file:///Users/adimac/Documents/test/frontend/src/pages/InventoryPage.tsx. Excluding it from coverage.
+ Error [RolldownError]: Parse failed with 1 error:
+Expected `from` but found `{`
+ 9:   updateVehicle,
+10: } from '../api/vehicles';
+11: import type { Vehicle, VehicleInput } from '../api/types';
+                ^
+12: import { Button } from '../components/ui/Button';
+13: import { ConfirmDialog } from '../components/ui/ConfirmDialog';
+    at error (file:///Users/adimac/Documents/test/frontend/node_modules/rolldown/dist/shared/logs-DyTyzzWG.mjs:164:24)
+    at normalizeParseError (file:///Users/adimac/Documents/test/frontend/node_modules/rolldown/dist/parse-ast-index.mjs:25:9)
+    at wrap (file:///Users/adimac/Documents/test/frontend/node_modules/rolldown/dist/parse-ast-index.mjs:5:39)
+    at parseAstAsync (file:///Users/adimac/Documents/test/frontend/node_modules/rolldown/dist/parse-ast-index.mjs:54:9)
+    at async V8CoverageProvider.remapCoverage (file:///Users/adimac/Documents/test/frontend/node_modules/@vitest/coverage-v8/dist/provider.js:156:10)
+    at async file:///Users/adimac/Documents/test/frontend/node_modules/@vitest/coverage-v8/dist/provider.js:142:23
+    at async Promise.all (index 6)
+    at async V8CoverageProvider.getCoverageMapForUncoveredFiles (file:///Users/adimac/Documents/test/frontend/node_modules/@vitest/coverage-v8/dist/provider.js:132:4)
+    at async V8CoverageProvider.generateCoverage (file:///Users/adimac/Documents/test/frontend/node_modules/@vitest/coverage-v8/dist/provider.js:78:29)
+    at async file:///Users/adimac/Documents/test/frontend/node_modules/vitest/dist/chunks/cli-api.De07GUeT.js:12881:23 {
+  code: 'PARSE_ERROR',
+  id: undefined,
+  pos: 284
+}
+
+[2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[32m13 passed[39m[22m[90m (13)[39m
+[2m   Start at [22m 13:48:10
+[2m   Duration [22m 1.91s[2m (environment 55%, tests 15%, setup 13%, import 9%, transform 6%, worker 3%)[22m
+
+[34m % [39m[2mCoverage report from [22m[33mv8[39m
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |   24.28 |     28.5 |   16.66 |   26.38 |                   
+ src               |       0 |      100 |       0 |       0 |                   
+  App.tsx          |       0 |      100 |       0 |       0 | 14                
+ src/api           |   16.66 |     9.09 |       0 |   17.24 |                   
+  auth.ts          |       0 |      100 |       0 |       0 | 5-11              
+  client.ts        |   33.33 |       10 |       0 |   35.71 | 12-14,18-26       
+  vehicles.ts      |       0 |        0 |       0 |       0 | 6-31              
+ ...omponents/auth |   92.59 |    88.46 |     100 |   95.83 |                   
+  AuthForm.tsx     |   92.59 |    88.46 |     100 |   95.83 | 37                
+ ...omponents/home |       0 |        0 |       0 |       0 |                   
+  BlogSection.tsx  |       0 |      100 |       0 |       0 | 3-16              
+  BrandStrip.tsx   |       0 |      100 |       0 |       0 | 4-18              
+  ...reSection.tsx |       0 |        0 |       0 |       0 | 13-87             
+  ...ureBanner.tsx |       0 |      100 |       0 |       0 | 6                 
+  HeroSlider.tsx   |       0 |        0 |       0 |       0 | 13-109            
+  QuickSearch.tsx  |       0 |        0 |       0 |       0 | 6-47              
+  ...onHeading.tsx |       0 |        0 |       0 |       0 | 2                 
+  ...esSection.tsx |       0 |      100 |       0 |       0 | 4-16              
+  ShowcaseCard.tsx |       0 |        0 |       0 |       0 | 10-32             
+  Testimonials.tsx |       0 |        0 |       0 |       0 | 3-17              
+ ...ponents/layout |       0 |        0 |       0 |       0 |                   
+  Footer.tsx       |       0 |        0 |       0 |       0 | 6-99              
+  Layout.tsx       |       0 |      100 |       0 |       0 | 6                 
+  Navbar.tsx       |       0 |        0 |       0 |       0 | 8-105             
+  ScrollToHash.tsx |       0 |        0 |       0 |       0 | 6-13              
+ src/components/ui |      40 |       70 |   33.33 |   46.15 |                   
+  Button.tsx       |     100 |      100 |     100 |     100 |                   
+  ...irmDialog.tsx |       0 |        0 |       0 |       0 | 14                
+  Field.tsx        |     100 |      100 |     100 |     100 |                   
+  Modal.tsx        |       0 |        0 |       0 |       0 | 11-20             
+  styles.ts        |     100 |      100 |     100 |     100 |                   
+ ...nents/vehicles |   10.11 |    18.03 |   16.66 |   11.84 |                   
+  ...ockDialog.tsx |       0 |        0 |       0 |       0 | 15-40             
+  ...chFilters.tsx |       0 |        0 |       0 |       0 | 10-83             
+  VehicleCard.tsx  |     100 |      100 |     100 |     100 |                   
+  VehicleForm.tsx  |       0 |        0 |       0 |       0 | 18-69             
+  VehicleImage.tsx |      25 |        0 |      50 |   33.33 | 18-19             
+ src/context       |   57.77 |     37.5 |      45 |   68.57 |                   
+  AuthContext.tsx  |   79.16 |       75 |   77.77 |   80.95 | 23-24,41-42       
+  ToastContext.tsx |   33.33 |        0 |   18.18 |      50 | 21-23,36-55       
+ src/hooks         |       0 |        0 |       0 |       0 |                   
+  ...uncedValue.ts |       0 |      100 |       0 |       0 | 5-10              
+  useVehicles.ts   |       0 |        0 |       0 |       0 | 15-41             
+ src/lib           |   54.16 |    29.72 |   54.54 |   54.76 |                   
+  catalog.ts       |       0 |      100 |     100 |       0 | 1-2               
+  demoData.ts      |       0 |      100 |     100 |       0 | 3-6               
+  error.ts         |      60 |    46.15 |      50 |    62.5 | 12-13,18          
+  format.ts        |    87.5 |      100 |   66.66 |     100 |                   
+  searchParams.ts  |       0 |        0 |       0 |       0 | 4-17              
+  storage.ts       |   66.66 |      100 |   66.66 |   66.66 | 16,29-30          
+  vehicleImage.ts  |     100 |       50 |     100 |     100 | 22                
+ src/pages         |       0 |      100 |       0 |       0 |                   
+  HomePage.tsx     |       0 |      100 |       0 |       0 | 11                
+  LoginPage.tsx    |       0 |      100 |       0 |       0 | 5                 
+  NotFoundPage.tsx |       0 |      100 |       0 |       0 | 5                 
+  RegisterPage.tsx |       0 |      100 |       0 |       0 | 5                 
+ src/routes        |     100 |      100 |     100 |     100 |                   
+  ...ctedRoute.tsx |     100 |      100 |     100 |     100 |                   
+-------------------|---------|----------|---------|---------|-------------------

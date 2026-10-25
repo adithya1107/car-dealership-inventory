@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { Button } from '../ui/Button';
 import { buttonStyles } from '../ui/styles';
 
 const leftLinks = [
