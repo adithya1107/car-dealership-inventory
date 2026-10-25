@@ -56,4 +56,20 @@ export class VehicleRepository {
       data: { quantity: { increment: delta } },
     });
   }
+
+  async decrementIfAvailable(id: string, amount: number): Promise<boolean> {
+    const result = await prisma.$runCommandRaw({
+      update: 'Vehicle', // collection name = Prisma model name
+      updates: [
+        {
+          q: { _id: { $oid: id }, quantity: { $gte: amount } },
+          u: {
+            $inc: { quantity: -amount },
+            $set: { updatedAt: { $date: new Date().toISOString() } },
+          },
+        },
+      ],
+    });
+    return result.nModified === 1;
+  }
 }

@@ -41,10 +41,13 @@ export class VehicleService {
     await this.vehicles.remove(id);
   }
 
-  async purchase(id: string, amount: number): Promise<Vehicle> {
-    const vehicle = await this.getOrThrow(id);
-    if (vehicle.quantity < amount) throw new OutOfStockError();
-    return this.vehicles.adjustStock(id, -amount);
+   async purchase(id: string, amount: number): Promise<Vehicle> {
+    const reserved = await this.vehicles.decrementIfAvailable(id, amount);
+    if (!reserved) {
+      await this.getOrThrow(id); // 404 if the vehicle does not exist...
+      throw new OutOfStockError(); // ...otherwise there isn't enough stock
+    }
+    return this.getOrThrow(id);
   }
 
   async restock(id: string, amount: number): Promise<Vehicle> {
