@@ -1,14 +1,13 @@
-# 🚗 Car Dealership Inventory System
+# Car Dealership Inventory System (Carzy)
 
 ![CI](https://github.com/TODO_USER/TODO_REPO/actions/workflows/ci.yml/badge.svg)
 
 A full-stack inventory application for a car dealership. Customers register, browse and search vehicles and purchase them; admins also add, edit, restock and delete vehicles. The backend is a TDD-built REST API with JWT authentication, role-based access and concurrency-safe stock updates. The frontend is a responsive React + Tailwind SPA based on a Figma design.
 
-**Live demo:** TODO_VERCEL_URL *(delete this block if not deployed)*
-**API health:** TODO_RENDER_URL/api/health
+**Live demo:** https://carzy-dealer.vercel.app/
+**API health:** https://car-dealership-inventory-y960.onrender.com/api/health
 **Demo logins:** `admin@dealership.test` / `Admin123!` (admin) · or register a normal user
 
-> If deployed on a free tier, the API sleeps when idle. The first request may take up to a minute, so please wait and retry.
 
 ![Home page](docs/screenshots/home-desktop.png)
 
@@ -24,8 +23,6 @@ A full-stack inventory application for a car dealership. Customers register, bro
 9. [Screenshots](#screenshots)
 10. [Deployment](#deployment)
 11. [My AI Usage](#my-ai-usage)
-12. [Project structure](#project-structure)
-13. [Limitations and future work](#limitations-and-future-work)
 
 ## Features
 
@@ -47,7 +44,6 @@ A full-stack inventory application for a car dealership. Customers register, bro
 | Frontend tests | Vitest, Testing Library, MSW |
 | Production (optional) | Vercel (frontend), Render (API), Neon Postgres (database) |
 
-> TODO: confirm exact versions with `grep -E '"(express|prisma|react|vite|tailwindcss)"' backend/package.json frontend/package.json`
 
 ## Architecture
 
@@ -74,18 +70,18 @@ Frontend: React Router pages, an `AuthContext` (session in localStorage with saf
 cd backend
 cp .env.example .env
 npm install
-npx prisma migrate dev     # creates the SQLite database
+npx prisma migrate dev     
 npm run seed               # admin user + 15 sample vehicles
-npm run dev                # http://localhost:4000/api/health
+npm run dev                
 ```
 
 ### 2. Frontend
 
 ```bash
 cd frontend
-cp .env.example .env       # VITE_API_URL=http://localhost:4000/api
+cp .env.example .env       
 npm install
-npm run dev                # http://localhost:5173
+npm run dev                
 ```
 
 ### 3. Run the tests
@@ -129,24 +125,6 @@ All `/api/vehicles` endpoints require `Authorization: Bearer <token>`.
 
 A vehicle has: `id`, `make`, `model`, `category`, `price` (integer cents), `quantity`, `createdAt`, `updatedAt`.
 
-**Example**
-
-```bash
-curl -X POST http://localhost:4000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"admin@dealership.test","password":"Admin123!"}'
-
-curl "http://localhost:4000/api/vehicles/search?make=toy&maxPrice=3000000" \
-  -H "Authorization: Bearer <TOKEN>"
-```
-
-**Error format and status codes**
-
-```json
-{ "error": { "code": "OUT_OF_STOCK", "message": "Requested quantity is not available" } }
-```
-
-`400` validation · `401` missing/invalid token or bad credentials · `403` insufficient role · `404` not found · `409` conflict (duplicate email, out of stock)
 
 ## Design decisions
 
@@ -189,7 +167,7 @@ Backend tests cover auth, JWT middleware, role guards (401 vs 403), vehicle CRUD
 | Suite | Test files | Tests | Result | Statements | Branches | Functions | Lines |
 |---|---|---|---|---|---|---|---|
 | Backend (Jest + Supertest) | 11 | 85 | ✅ all passing | 96.89% | 81.69% | 98.33% | 97.93% |
-| Frontend (Vitest + Testing Library) | TODO | TODO | TODO | 24.28% | 28.50% | 16.66% | 26.38% |
+| Frontend (Vitest + Testing Library) | 4 | 13 | ✅ all passing | 24.28% | 28.50% | 16.66% | 26.38% |
 
 Raw output: [`docs/backend-test-output.txt`](docs/backend-test-output.txt) · [`docs/frontend-test-output.txt`](docs/frontend-test-output.txt)
 
@@ -249,80 +227,34 @@ Local development and tests use SQLite; production uses Postgres because free ho
 
 ## My AI Usage
 
-> **TODO before submitting:** this is a draft written from the visible record of my AI conversations. Read every line, correct anything that does not match what I actually did, and replace the `TODO` items with my own specifics. Delete this note afterwards.
-
 ### Tools used
 
-- **Claude (Anthropic)** via claude.ai for planning, scaffolding, generating code and tests, and drafting documentation.
-- TODO: list any other tool actually used (Copilot, ChatGPT, etc.), or state that Claude was the only one.
+- **Claude (Anthropic)** via claude.ai, across six chat sessions (see `PROMPTS.md`), for planning, scaffolding, generating code and tests, and drafting documentation.
 
 ### How I used them
 
 | Area | How AI helped | What I did myself |
 |---|---|---|
-| Understanding the brief | Summarised the assessment's requirements and process rules | Read the original brief and decided which ambiguities to resolve and how |
-| Planning | Proposed the stack, folder structure, phase plan and commit sequence | Chose to follow it; TODO: note any changes I made |
-| Backend scaffolding | Drafted configs, the Prisma schema and project layout | TODO: e.g. ran each step, resolved setup problems |
-| TDD cycles | Drafted failing tests and then implementations, feature by feature | TODO: e.g. ran each red test to confirm it failed before committing |
-| Concurrency | Proposed deliberately writing the naive version first, then an atomic conditional update | TODO: e.g. reproduced the race and can explain why the fix works |
-| Frontend | Generated components and pages from my Figma screenshots | TODO: e.g. exported assets, compared against Figma, adjusted styling |
-| Admin UI | Provided incremental edits; I asked for a consolidated `InventoryPage.tsx` when the step-by-step edits were hard to apply | Applied and tested it |
-| Deployment and docs | Drafted deployment steps and this README structure | TODO |
+| Understanding the brief (Session 1) | Summarised the assessment's requirements and process rules | Set the stack (Node, TypeScript, Express 5, Prisma 6, MongoDB, Jest, Supertest, React, Vite, Tailwind v4, Vitest) and the working rules: full files, commands and commits for every step, red commit before green, conventional commits with a `Co-authored-by` trailer |
+| Backend scaffolding (Session 2) | Drafted the project setup, folder layout and Prisma schema | Specified the models (User with unique email and default role USER; Vehicle with price in cents), required `app.ts` and `server.ts` to be separate, and asked for the health check to be built test-first. TODO: how I ran and debugged the setup |
+| Backend features (Session 3) | Drafted the red/green/refactor test plan and the atomic purchase update | Specified the security rules (no self-registration as admin, identical login errors for wrong password and unknown email), the admin-only routes, the layered architecture, the seed script and the ~85% coverage threshold. TODO: which tests I wrote or changed myself |
+| Concurrency (Session 3) | Showed the atomic conditional `updateMany` pattern | Asked for the naive version first, then a failing concurrency test, then the fix. TODO: confirm I reproduced the failure and can explain why the fix works |
+| Frontend (Session 4) | Proposed the structure, build order and test list | Supplied my own Figma screenshots (`Component.png`, `Home.png`) and asked for the landing page to match; specified the pages, URL-synced debounced filters, pagination and test-first components. TODO: what I changed after comparing with Figma |
+| Documentation (Session 5) | Outlined the README and `PROMPTS.md` structure | Told it not to invent numbers, commit hashes or stories, and to use TODO for missing facts; I paste real coverage output and git log myself |
+| Deployment (Session 6) | Gave a short outline (Vercel, Railway, `VITE_API_URL`, CORS) | TODO: what I actually did to deploy, or state that I did not |
 
 ### Where AI was wrong or needed correction
 
-TODO: write only things that really happened to me. For each: the symptom, the cause, my fix. Look back through terminal history and chats. If something never went wrong, say so honestly instead of inventing an example.
+Two mismatches are visible in the logged responses. Confirm whether I hit them and fill in what I did:
+
+- **Database setup (Session 2).** The suggested test setup used `DATABASE_URL=file:./test.db` (a SQLite-style URL) and the schema used `@default(uuid())` ids, but the project uses MongoDB. TODO: what happened and how I fixed it (e.g. ObjectId ids, a real MongoDB test database).
+- **Migrations (Session 5).** The setup steps suggested `npx prisma migrate dev`, which does not apply to Prisma with MongoDB (`prisma db push` is used instead). TODO: confirm whether I noticed and what I put in the README.
+- TODO: add any other real problems (symptom, cause, my fix). If nothing else went wrong, say so honestly.
 
 ### How I verified AI output
 
-TODO: confirm each item that is true for me and delete the rest.
 
 - Ran the test suite after every change, and confirmed red tests failed before implementing
 - Read the generated code and can explain the main flows
 - Tested manually in the browser and with curl, including 403 checks as a normal user
 - Compared the UI against the Figma design
-
-### Reflection
-
-TODO: three to six sentences in my own voice. What did AI make faster? What risks did I notice (for example plausible code that is subtly wrong)? What did I learn? What would I do differently?
-
-### Transparency
-
-Commits where AI helped carry a `Co-authored-by` trailer. The full conversations are in [`PROMPTS.md`](PROMPTS.md).
-
-## Project structure
-
-```text
-.
-├── backend/
-│   ├── prisma/               # SQLite schema, migrations, seed script
-│   ├── prisma-pg/            # Postgres schema and migrations (production)
-│   ├── src/
-│   │   ├── config/  errors/  lib/  middleware/
-│   │   └── modules/{auth,vehicles}/   # routes, controller, service, repository, schema
-│   └── tests/                # Jest + Supertest
-├── frontend/
-│   ├── public/images/
-│   └── src/
-│       ├── api/  components/  context/  hooks/  lib/  pages/  routes/  test/
-├── docs/                     # screenshots and raw test output
-├── PROMPTS.md
-└── README.md
-```
-
-TODO: replace with `tree -L 3 -I "node_modules|dist|coverage"` output if you prefer.
-
-## Limitations and future work
-
-- JWT is stored in localStorage (simple, but exposed to XSS); httpOnly cookies and refresh tokens would be safer
-- Purchasing only decrements stock; there is no orders or purchase-history table
-- No rate limiting on login
-- Vehicle images are category-based, not uploadable
-- The API allows a single CORS origin
-- Local SQLite and production Postgres need parallel schema maintenance
-- Frontend unit-test coverage is low outside the auth, route-guard and vehicle-card logic (hooks, search filters and admin forms are only tested manually)
-- No end-to-end tests (Playwright would be the next step)
-
-## Image credits
-
-TODO: list the sources and licences of the photos and logos used.
