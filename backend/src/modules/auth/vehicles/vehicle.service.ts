@@ -1,6 +1,7 @@
 import { Vehicle } from '@prisma/client';
 import { VehicleRepository } from './vehicle.repository';
-import { CreateVehicleInput, VehicleListQuery } from './vehicle.schema';
+import { CreateVehicleInput, UpdateVehicleInput, VehicleListQuery } from './vehicle.schema';
+import { NotFoundError } from '../../../errors/AppError';
 
 export interface Page<T> {
   data: T[];
@@ -25,5 +26,16 @@ export class VehicleService {
         totalPages: Math.ceil(total / query.limit),
       },
     };
+  }
+
+    async update(id: string, input: UpdateVehicleInput): Promise<Vehicle> {
+    await this.getOrThrow(id);
+    return this.vehicles.update(id, input);
+  }
+
+  private async getOrThrow(id: string): Promise<Vehicle> {
+    const vehicle = await this.vehicles.findById(id);
+    if (!vehicle) throw new NotFoundError('Vehicle not found');
+    return vehicle;
   }
 }

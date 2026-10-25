@@ -1,6 +1,6 @@
 import { Prisma, Vehicle } from '@prisma/client';
 import { prisma } from '../../../lib/prisma';
-import { CreateVehicleInput, VehicleListQuery } from './vehicle.schema';
+import { CreateVehicleInput, UpdateVehicleInput, VehicleListQuery } from './vehicle.schema';
 
 function buildWhere(query: VehicleListQuery): Prisma.VehicleWhereInput {
   const where: Prisma.VehicleWhereInput = {};
@@ -26,5 +26,13 @@ export class VehicleRepository {
       prisma.vehicle.count({ where }),
     ]);
     return { items, total };
+  }
+
+    findById(id: string): Promise<Vehicle | null> {
+    return prisma.vehicle.findUnique({ where: { id } });
+  }
+
+  update(id: string, data: UpdateVehicleInput): Promise<Vehicle> {
+    return prisma.vehicle.update({ where: { id }, data });
   }
 }
