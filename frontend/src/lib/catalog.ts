@@ -1,0 +1,2 @@
+export const CATEGORIES = ['Sedan', 'SUV', 'Hatchback', 'Coupe', 'Convertible', 'Truck', 'Electric'] as const;
+export const MAKES = ['Toyota', 'Honda', 'Ford', 'Tesla', 'BMW', 'Hyundai', 'Mazda', 'Audi', 'Ferrari'] as const;
